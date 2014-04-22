@@ -13,7 +13,7 @@
 "                Hari Krishna Dara <hari_vim at yahoo dot com>
 "                Ron Aaron
 "
-" Help:         :h dbext.txt 
+" Help:         :h dbext.txt
 "
 " This program is free software; you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -179,7 +179,7 @@ if !exists(':DBListView')
                 \ :call dbext#DB_getListView(<f-args>)
     nmap <unique> <script> <Plug>DBListView
                 \ :DBListView<CR>
-endif 
+endif
 if !exists(':DBCompleteTables')
     command! -nargs=0 -bang DBCompleteTables
                 \ :call DB_DictionaryCreate( <bang>0, 'Table' )
@@ -393,30 +393,30 @@ if has("gui_running") && has("menu") && g:dbext_default_menu_mode != 0
     exec 'noremenu  <script> '.menuRoot.'.List\ Connections\ (DBI) :DBListConnections<CR>'
 endif
 "}}}
-function! DB_getDictionaryName( which ) 
+function! DB_getDictionaryName( which )
     return dbext#DB_getDictionaryName( a:which )
-endfunction 
-function! DB_DictionaryCreate( drop_dict, which ) 
-   return dbext#DB_DictionaryCreate( a:drop_dict, a:which ) 
+endfunction
+function! DB_DictionaryCreate( drop_dict, which )
+   return dbext#DB_DictionaryCreate( a:drop_dict, a:which )
 endfunction
 
-function! DB_listOption(...) 
+function! DB_listOption(...)
     if a:0 == 0
-        return dbext#DB_listOption() 
+        return dbext#DB_listOption()
     elseif a:0 == 1
-        return dbext#DB_listOption(a:1) 
+        return dbext#DB_listOption(a:1)
     endif
 endfunction
 
-function! DB_getListColumn(...) 
-    if(a:0 > 0) 
+function! DB_getListColumn(...)
+    if(a:0 > 0)
         " Strip any leading or trailing spaces
         let table_name = substitute(a:1, '\s*\(.\+\)\s*', '\1', '')
     else
         let table_name = expand("<cword>")
     endif
 
-    if(a:0 > 1) 
+    if(a:0 > 1)
         " Suppress messages to the user, this prevents a echo
         " vim bug that offsets the output
         let silent_mode = a:2
@@ -424,7 +424,7 @@ function! DB_getListColumn(...)
         let silent_mode = 0
     endif
 
-    if(a:0 > 2) 
+    if(a:0 > 2)
         " Separate with newlines
         let use_newline_sep = a:3
     else
@@ -449,7 +449,7 @@ function! DB_getVisualBlock() range
     call cursor(curline, curcol)
 
     return vis_cmd
-endfunction 
+endfunction
 
 "" Get buffer parameter value
 function! DB_execCmd(name, ...)
@@ -472,7 +472,7 @@ function! DB_execCmd(name, ...)
         let result = dbext#DB_execFuncWCheck(a:name, a:1, a:2, a:3, a:4)
     endif
     call dbext#DB_setMultipleOptions('use_result_buffer='.l:prev_use_result_buffer)
-    
+
     return result
 endfunction
 
@@ -480,7 +480,7 @@ augroup dbext
     au!
     autocmd BufEnter    * if exists('g:loaded_dbext_auto') != 0 | exec "call dbext#DB_setTitle()" | endif
     autocmd BufReadPost * if &modeline == 1 | call dbext#DB_checkModeline() | endif
-    autocmd BufDelete   * if exists('g:loaded_dbext_auto') != 0 | exec 'call dbext#DB_auBufDelete( expand("<abuf>") )' | endif
+    " autocmd BufDelete   * if exists('g:loaded_dbext_auto') != 0 | exec 'call dbext#DB_auBufDelete( expand("<abuf>") )' | endif
     autocmd VimLeavePre * if exists('g:loaded_dbext_auto') != 0 | exec 'call dbext#DB_auVimLeavePre()' | endif
 augroup END
 
